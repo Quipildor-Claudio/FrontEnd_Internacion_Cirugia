@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { JwtService } from './jwt.service';
-import { API_URI } from '../../config/config';
+import { API_URI } from '../../../config/config';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +24,8 @@ export class AuthService {
     this.router.navigate(['/auth']);
   }
 
-  get(id: any): Observable<User> {
-    return this.http.get<User>(`${API_URI}/auth/user/${id}`);
+  get(id: any): Observable<Usuario> {
+    return this.http.get<Usuario>(`${API_URI}/auth/user/${id}`);
   }
 
   isLoggedIn():boolean {
@@ -36,9 +36,9 @@ export class AuthService {
     }
   }
 
-  getUserTk():Observable<User>{
+  getUserTk():Observable<Usuario>{
     const token = localStorage.getItem('tokenInter');
     const userId = this.jwtService.getUserIdFromToken(token);
-    return this.http.get<User>(`${API_URI}/auth/user/${userId}`);
+    return this.http.get<Usuario>(`${API_URI}/auth/user/${userId}`);
   }
 }
