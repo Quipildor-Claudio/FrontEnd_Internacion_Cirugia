@@ -15,7 +15,23 @@
       </div>
     </div>
     <div class="card-body">
-      <h1>Hellloooooooooo!</h1>
+      <div class="form-group">
+        <label for="dni">Buscar paciente por DNI</label>
+        <input type="text" id="dni" class="form-control" placeholder="Ingrese DNI" [(ngModel)]="dni"
+          (input)="buscarPorDni()" />
+      </div>
+          <div class="row mt-4">
+      <div class="col-md-4" *ngFor="let sala of salas">
+        <div class="info-box bg-light" (click)="verSala(sala.id)" style="cursor: pointer;">
+          <span class="info-box-icon bg-info"><i class="fas fa-procedures"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">{{ sala.nombre }}</span>
+            <span>Camas Ocupadas: {{ sala.ocupadas }}</span><br />
+            <span>Camas Libres: {{ sala.libres }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     </div>
   </div>
