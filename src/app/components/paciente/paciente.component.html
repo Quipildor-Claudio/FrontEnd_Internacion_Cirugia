@@ -1,1 +1,115 @@
-<p>paciente works!</p>
+<!-- Main content -->
+<section class="content">
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">{{ title }}</h3>
+
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+     <form [formGroup]="pacienteForm" (ngSubmit)="guardar()">
+  <div class="card card-primary">
+   
+    <div class="card-body">
+
+      <!-- DNI -->
+      <div class="form-group">
+        <label>DNI</label>
+        <input formControlName="dni" class="form-control" placeholder="Ingrese DNI" />
+        <div *ngIf="pacienteForm.get('dni')?.hasError('required')" class="text-danger">El DNI es obligatorio</div>
+        <div *ngIf="pacienteForm.get('dni')?.hasError('dniDuplicado')" class="text-danger">El DNI ya está registrado</div>
+      </div>
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label>Nombre</label>
+        <input formControlName="nombre" class="form-control" />
+      </div>
+
+      <!-- Apellido -->
+      <div class="form-group">
+        <label>Apellido</label>
+        <input formControlName="apellido" class="form-control" />
+      </div>
+
+      <!-- Edad -->
+      <div class="form-group">
+        <label>Edad</label>
+        <input formControlName="edad" class="form-control" />
+      </div>
+
+      <!-- Fecha Nacimiento -->
+      <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <input formControlName="fecha_nac" type="date" class="form-control" />
+      </div>
+
+      <!-- Sexo -->
+      <div class="form-group">
+        <label>Sexo</label>
+        <select formControlName="sexo" class="form-control">
+          <option value="">Seleccione</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+      </div>
+
+      <!-- Historia Clínica -->
+      <div class="form-group">
+        <label>Historia Clínica</label>
+        <input formControlName="hclinica" class="form-control" />
+      </div>
+
+      <!-- Diagnósticos -->
+      <div formArrayName="diagnosticos">
+        <div *ngFor="let diag of diagnosticos.controls; let i = index" [formGroupName]="i" class="border p-3 mb-2 rounded bg-light">
+          <label>Diagnóstico {{ i + 1 }}</label>
+          <div class="form-group">
+            <input formControlName="tipo" class="form-control" placeholder="Tipo" />
+          </div>
+          <div class="form-group">
+            <input formControlName="descripcion" class="form-control" placeholder="Descripción" />
+          </div>
+          <div class="form-group">
+            <input formControlName="fecha" type="date" class="form-control" />
+          </div>
+          <button type="button" class="btn btn-danger btn-sm" (click)="quitarDiagnostico(i)">Eliminar</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-info btn-sm" (click)="agregarDiagnostico()">Agregar Diagnóstico</button>
+
+      <!-- Fechas de ingreso/salida -->
+      <div class="form-group mt-3">
+        <label>Fecha de Ingreso</label>
+        <input formControlName="fechaIngreso" type="date" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Fecha de Salida</label>
+        <input formControlName="fechaSalida" type="date" class="form-control" />
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+</form>
+
+
+    </div>
+  </div>
+  <!-- /.card-body -->
+
+  <!-- /.card -->
+</section>
+<!-- /.content -->
