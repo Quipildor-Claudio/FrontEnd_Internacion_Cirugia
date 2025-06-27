@@ -16,24 +16,33 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6" *ngFor="let p of camas">
-                    <div class="info-box mb-3">
-                        <span class="info-box-icon bg-info elevation-1">
-                            <i class="fas fa-procedures"></i>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Cama {{ p.cama }}</span>
-                            <span class="info-box-number">
-                                DNI: {{ p.dni }}<br>
-                                Nombre: {{ p.nombre }}<br>
-                                Diagnóstico: {{ p.diagnostico }}
+                <div class="col-md-6" *ngFor="let c of sala.camas">
+                    <a [routerLink]="['/paciente', c.paciente ? c.paciente._id : '']"
+                        class="text-decoration-none text-dark">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-info elevation-1">
                             </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Cama {{ c.numero }}</span>
+                                <span class="info-box-number">
+                                    DNI: {{ (c.paciente && c.paciente.dni) ? c.paciente.dni : 'No asignado' }}<br>
+                                    Nombre: {{ (c.paciente && c.paciente.nombre) ? c.paciente.nombre : 'No asignado'
+                                    }}<br>
+                                    Diagnóstico:
+                                    @if(c.paciente.diagnosticos.length >0){
+
+                                    {{ c.paciente.diagnosticos[0].tipo }}<br>
+
+                                    }
+
+
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
+
             </div>
-
-
         </div>
     </div>
     <!-- /.card-body -->

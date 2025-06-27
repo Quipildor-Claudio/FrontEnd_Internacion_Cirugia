@@ -9,7 +9,8 @@ export const routes: Routes = [
     { path: 'auth', component: LoginComponent },
 
     { path: 'home', component: HomeComponent, canActivate: [authGuard] },
-    { path: 'camas', component: CamasComponent, canActivate: [authGuard] },
+    { path: 'camas/:id', component: CamasComponent, canActivate: [authGuard] },
+    { path: 'paciente/:id', component: CamasComponent, canActivate: [authGuard] },
 
     // Ruta para manejo de errores, cuando la ruta no se encuentra
     { path: '**', component: HomeComponent, canActivate: [authGuard] }, // Redirige a una página de error si la ruta no es válida

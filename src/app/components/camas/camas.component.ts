@@ -1,21 +1,47 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CamaService } from '../../services/cama.service';
+import { SalaService } from '../../services/sala.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-camas',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './camas.component.html',
   styleUrl: './camas.component.css'
 })
-export class CamasComponent implements OnInit{
-  title="Sala 5"
-   camas: any[] = [];
+export class CamasComponent implements OnInit {
+  title = "";
+  camas: any[] = [];
+  sala: any = null;
+  salaId?: string;
+  constructor(private salaService: SalaService, private camaService: CamaService, private route: ActivatedRoute, private router: Router) {
 
-  ngOnInit(): void {
-    this.camas = [
-      { dni: '12345678', nombre: 'Juan Pérez', diagnostico: 'Neumonía', cama: '101' },
-      { dni: '87654321', nombre: 'María López', diagnostico: 'Fractura', cama: '102' },
-      { dni: '11223344', nombre: 'Carlos Gómez', diagnostico: 'Covid-19', cama: '103' }
-    ];
   }
+  ngOnInit(): void {
+    // Verificar si estamos editando
+    this.route.params.subscribe((params) => {
+      if (params['id']) {
+        this.salaId = params['id'];
+        this.getSala();
+      }
+    });
+  }
+
+  getSala() {
+    this.salaService.get(this.salaId).subscribe((sala: any) => {
+      this.sala = sala;
+      console.log(sala);
+      this.title = `Camas de la Sala: ${sala.nombre}`;
+    });
+  }
+
+
+
+
 }
+
+
+
+
+
