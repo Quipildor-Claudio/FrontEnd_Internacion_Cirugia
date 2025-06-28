@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MedicoService } from '../../../services/medico.service';
 
 @Component({
   selector: 'app-add-medico',
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-medico.component.html',
   styleUrl: './add-medico.component.css'
 })
-export class AddMedicoComponent implements OnInit{
+export class AddMedicoComponent implements OnInit {
   @Input() isEditMode = false;
   @Input() medicoData: any;
   medicoForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private medicoService: MedicoService) { }
 
   ngOnInit(): void {
     this.medicoForm = this.fb.group({
@@ -25,10 +27,19 @@ export class AddMedicoComponent implements OnInit{
       servicio: [''],
       funcion: ['']
     });
-
-    if (this.isEditMode && this.medicoData) {
+ // Verificar si estamos editando
+    this.route.params.subscribe((params) => {
+      if (params['id']) {
+        this.isEditMode = true;
+        this.getMedico(params['id']);
+      }
+    });
+  }
+  getMedico(id: string) {
+    this.medicoService.get(id).subscribe(res => {
+      this.medicoData = res;
       this.medicoForm.patchValue(this.medicoData);
-    }
+    });
   }
 
   onSubmit(): void {
@@ -36,10 +47,14 @@ export class AddMedicoComponent implements OnInit{
       const medico = this.medicoForm.value;
       if (this.isEditMode) {
         // Lógica de actualización
-        console.log('Actualizar médico:', medico);
+        this.medicoService.update(this.medicoData._id, medico).subscribe(res => {
+          this.router.navigate(['/medicos']);
+        });
       } else {
         // Lógica de creación
-        console.log('Registrar médico:', medico);
+        this.medicoService.create(medico).subscribe(res => {
+          this.router.navigate(['/medicos']);
+        });
       }
     }
   }

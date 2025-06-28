@@ -36,7 +36,7 @@
             <td>{{ medico.servicio || '-' }}</td>
             <td>{{ medico.funcion || '-' }}</td>
             <td class="text-right">
-              <button class="btn btn-sm btn-warning mr-2" (click)="editarMedico(medico)">
+              <button class="btn btn-sm btn-warning mr-2" [routerLink]="['/medico', medico._id]">
                 <i class="fas fa-edit"></i>
               </button>
               <button class="btn btn-sm btn-danger" (click)="eliminarMedico(medico)">

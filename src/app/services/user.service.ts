@@ -17,7 +17,7 @@ export class UserService {
   }
 
   get(id: any): Observable<any> {
-    return this.http.get<any>(`${API_URI}/auth/${id}`);
+    return this.http.get<any>(`${API_URI}/auth/user/${id}`);
   }
 
   create(data: any): Observable<any> {

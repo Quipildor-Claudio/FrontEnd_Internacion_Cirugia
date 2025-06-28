@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-usuario',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './list-usuario.component.html',
   styleUrl: './list-usuario.component.css'
 })
@@ -37,7 +38,9 @@ export class ListUsuarioComponent {
 
   eliminarUsuario(usuario: any): void {
     if (confirm(`¿Está seguro que desea eliminar al usuario ${usuario.nombreUsuario}?`)) {
-     
+      this.usuarioService.delete(usuario._id).subscribe(res=>{
+        this.cargarUsuarios();
+      });
     }
   }
 
