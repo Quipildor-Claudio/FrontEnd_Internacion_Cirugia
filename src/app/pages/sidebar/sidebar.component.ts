@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/usuario';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })

@@ -41,11 +41,16 @@ export class PacienteComponent implements OnInit {
         this.pacienteId = params['id'];
         this.getPaciente();
         this.isEditing = true;
+         console.log(this.currentPaciente); 
       }
     });
   }
+  
   getPaciente() {
-    this.pacienteService.get(this.pacienteId).subscribe(res => { this.currentPaciente = res; console.log(this.currentPaciente); });
+    this.pacienteService.get(this.pacienteId).subscribe(res => { 
+      this.currentPaciente = res;
+      this.pacienteForm.patchValue(this.currentPaciente)
+    });
   }
 
   guardar(): void {

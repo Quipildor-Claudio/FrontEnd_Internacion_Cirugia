@@ -1,0 +1,107 @@
+<!-- Main content -->
+<section class="content">
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">{{ isEditMode ? 'Editar Médico' : 'Registrar Médico' }}</h3>
+
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+       <form [formGroup]="medicoForm" (ngSubmit)="onSubmit()">
+
+        <!-- Nombre y Apellido -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input formControlName="nombre" class="form-control" placeholder="Ingrese nombre" />
+              <div *ngIf="medicoForm.get('nombre')?.touched && medicoForm.get('nombre')?.invalid" class="text-danger">
+                El nombre es obligatorio
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Apellido</label>
+              <input formControlName="apellido" class="form-control" placeholder="Ingrese apellido" />
+              <div *ngIf="medicoForm.get('apellido')?.touched && medicoForm.get('apellido')?.invalid" class="text-danger">
+                El apellido es obligatorio
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUIL y Matrícula -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>CUIL</label>
+              <input formControlName="cuil" class="form-control" placeholder="Ingrese CUIL" />
+              <div *ngIf="medicoForm.get('cuil')?.touched && medicoForm.get('cuil')?.hasError('required')" class="text-danger">
+                El CUIL es obligatorio
+              </div>
+              <div *ngIf="medicoForm.get('cuil')?.hasError('cuilDuplicado')" class="text-danger">
+                El CUIL ya está registrado
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Matrícula</label>
+              <input formControlName="matricula" class="form-control" placeholder="Ingrese matrícula" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Título y Servicio -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Título</label>
+              <input formControlName="titulo" class="form-control" placeholder="Ej: Médico Pediatra" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Servicio</label>
+              <input formControlName="servicio" class="form-control" placeholder="Ej: Cirugía General" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Función -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Función</label>
+              <input formControlName="funcion" class="form-control" placeholder="Ej: Cirujano" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón Guardar -->
+        <div class="row mt-4">
+          <div class="col text-right">
+            <button type="submit" [disabled]="medicoForm.invalid" class="btn btn-primary">
+              {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+  <!-- /.card-body -->
+
+  <!-- /.card -->
+</section>
+<!-- /.content -->
