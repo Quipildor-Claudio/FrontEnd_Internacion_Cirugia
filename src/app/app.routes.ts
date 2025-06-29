@@ -9,12 +9,15 @@ import { AddMedicoComponent } from './components/medico/add-medico/add-medico.co
 import { ListMedicoComponent } from './components/medico/list-medico/list-medico.component';
 import { ListUsuarioComponent } from './components/usuario/list-usuario/list-usuario.component';
 import { AddUsuarioComponent } from './components/usuario/add-usuario/add-usuario.component';
+import { ListPacienteComponent } from './components/list-paciente/list-paciente.component';
 export const routes: Routes = [
 
     { path: 'auth', component: LoginComponent },
 
     { path: 'home', component: HomeComponent, canActivate: [authGuard] },
     { path: 'camas/:id', component: CamasComponent, canActivate: [authGuard] },
+    { path: 'pacientes', component: ListPacienteComponent, canActivate: [authGuard] },
+
     { path: 'paciente/:id', component: PacienteComponent, canActivate: [authGuard] },
     // Ruta para agregar o editar un médico
     { path: 'medicos', component: ListMedicoComponent, canActivate: [authGuard] },

@@ -16,12 +16,19 @@
         <a href="#" class="d-block">{{currentUser?.nombre??"-"}}</a>
       </div>
     </div>
-
-
-
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+          <a [routerLink]="['pacientes']" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Pacientes
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+        
+        </li>
         <li class="nav-item">
           <a [routerLink]="['medicos']" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
@@ -66,11 +73,8 @@
                 <p>Listado</p>
               </a>
             </li>
-
           </ul>
         </li>
-
-
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

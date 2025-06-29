@@ -25,7 +25,7 @@ export class CamasComponent implements OnInit {
       if (params['id']) {
         this.salaId = params['id'];
         this.getSala();
-        
+
       }
     });
   }

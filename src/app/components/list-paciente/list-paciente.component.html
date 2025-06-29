@@ -1,0 +1,69 @@
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Pacientes</h3>
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 350px;">
+                        <input type="text" class="form-control" placeholder="Buscar por nombre, apellido o DNI"
+                            [formControl]="busquedaControl" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        <th>Diagnósticos</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Fecha Salida</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of pacientes">
+                        <td>{{ p.dni }}</td>
+                        <td>{{ p.nombre }}</td>
+                        <td>{{ p.apellido }}</td>
+                        <td>{{ p.edad }}</td>
+                        <td>{{ p.sexo }}</td>
+                        <td>
+                            <span *ngFor="let d of p.diagnosticos" class="badge badge-info mr-1">
+                                {{ d.tipo }}
+                            </span>
+                        </td>
+                        <td>{{ p.fechaIngreso | date:'shortDate' }}</td>
+                        <td>{{ p.fechaSalida | date:'shortDate' }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary"> <i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" (click)="eliminarPaciente(p._id)"> <i
+                                    class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <!-- Sin resultados -->
+                    <div *ngIf=" pacientes.length === 0" class="alert alert-warning mt-4">
+                        No se encontraron pacientes.
+                    </div>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.card-body -->
+
+    <!-- /.card -->
+</section>
+<!-- /.content -->

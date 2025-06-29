@@ -1,10 +1,8 @@
 <!-- Main content -->
 <section class="content">
-  <!-- Default box -->
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">{{ title }}</h3>
-
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
           <i class="fas fa-minus"></i>
@@ -14,29 +12,70 @@
         </button>
       </div>
     </div>
+
     <div class="card-body">
+      <!-- Búsqueda -->
       <div class="form-group">
-        <label for="dni">Buscar paciente por DNI</label>
-        <input type="text" id="dni" class="form-control" placeholder="Ingrese DNI" [(ngModel)]="dni"
-          (input)="buscarPorDni()" />
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="Buscar paciente por nombre, apellido o DNI"
+            [formControl]="busquedaControl" />
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="row mt-4">
+
+      <!-- Mostrar SALAS solo si no hay búsqueda -->
+      <div class="row mt-4" *ngIf="!busquedaActiva">
         <div class="col-md-4" *ngFor="let sala of salas">
           <div class="info-box bg-light" [routerLink]="['/camas', sala._id]" style="cursor: pointer;">
-            <span class="info-box-icon bg-info"><i class="fas fa-procedures"></i></span>
+            <span class="info-box-icon bg-info"><i class="fas fa-house"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">{{ sala.nombre }}</span>
-              <span>Camas Ocupadas: </span><br />
-              <span>Camas Libres: </span>
+              <strong class="info-box-text">{{ sala.nombre }}</strong>
+              <span>Camas Ocupadas: {{ocupadas}} </span><br />
+              <span>Camas Libres: {{disponibles}}</span>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Mostrar PACIENTES si hay búsqueda -->
+      <div *ngIf="busquedaActiva && pacientes.length > 0" class="table-responsive mt-4">
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>DNI</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Edad</th>
+              <th>Sexo</th>
+              <th>Diagnósticos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of pacientes">
+              <td>{{ p.dni }}</td>
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.apellido }}</td>
+              <td>{{ p.edad }}</td>
+              <td>{{ p.sexo }}</td>
+              <td>
+                <span *ngFor="let d of p.diagnosticos" class="badge badge-info mr-1">
+                  {{ d.tipo }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Sin resultados -->
+      <div *ngIf="busquedaActiva && pacientes.length === 0" class="alert alert-warning mt-4">
+        No se encontraron pacientes.
+      </div>
+
     </div>
   </div>
-  <!-- /.card-body -->
-
-  <!-- /.card -->
 </section>
-<!-- /.content -->
