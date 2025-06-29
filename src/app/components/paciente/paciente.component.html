@@ -89,7 +89,7 @@
           <div class="col-12">
             <div formArrayName="diagnosticos">
               <div *ngFor="let diag of diagnosticos.controls; let i = index" [formGroupName]="i"
-                class="border p-3 mb-2 rounded bg-light">
+                class="border p-3 mb-2 rounded bg-secondary">
                 <label>Diagnóstico {{ i + 1 }}</label>
                 <div class="form-group">
                   <input formControlName="tipo" class="form-control" placeholder="Tipo" />
@@ -128,6 +128,7 @@
         <div class="row mt-4">
           <div class="col">
             <button type="submit" class="btn btn-primary">{{ isEditing ? 'Actualizar' : 'Guardar' }}</button>
+            <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
           </div>
         </div>
 

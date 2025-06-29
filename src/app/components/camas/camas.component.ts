@@ -15,6 +15,7 @@ export class CamasComponent implements OnInit {
   camas: any[] = [];
   sala: any = null;
   salaId?: string;
+
   constructor(private salaService: SalaService, private camaService: CamaService, private route: ActivatedRoute, private router: Router) {
 
   }
@@ -24,6 +25,7 @@ export class CamasComponent implements OnInit {
       if (params['id']) {
         this.salaId = params['id'];
         this.getSala();
+        
       }
     });
   }
