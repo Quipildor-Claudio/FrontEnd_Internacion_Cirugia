@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JwtService } from './jwt.service';
-import { API_URI } from '../../../config/config';
+import { API_URI } from '../../config/config';
 import { Usuario } from '../models/usuario';
 
 @Injectable({
