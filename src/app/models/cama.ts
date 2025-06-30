@@ -7,6 +7,5 @@ export class Cama {
   paciente: Paciente;
   medico: Medico;
   observacion: string;
-  piso: string;
   estado: string;
 }

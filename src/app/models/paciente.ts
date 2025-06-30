@@ -8,7 +8,6 @@ export class Paciente {
     dni:string;
     nombre:string;
     apellido:string;
-    edad:number;
     fecha_nac: Date;
     sexo: string;
     diagnosticos: Diagnostico[];

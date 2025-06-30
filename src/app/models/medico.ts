@@ -5,6 +5,4 @@ export class Medico {
     cuil:string;
     titulo:string;
     matricula:string;
-    serviciio:string;
-    funcion:string;
 }
